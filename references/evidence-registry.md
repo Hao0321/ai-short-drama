@@ -1,6 +1,6 @@
 # 研究證據登錄
 
-最後研究日期：2026-08-09（Asia/Taipei）
+最後研究日期：2026-08-13（Asia/Taipei）
 
 ## 目錄
 
@@ -10,6 +10,7 @@
 4. AI 生產工作流與品質
 5. 政策與合規
 6. 未採用或降級的主張
+7. Studio 產品機制研究
 
 ## 使用方法
 
@@ -134,3 +135,13 @@
 - 社群貼文提供的精確收益、完播或模型勝率：未取得可驗證後台資料。
 - 將 2026 徵求意見稿說成正式現行法：明確禁止。
 - 只憑榜單抄具體角色、橋段、台詞或視覺：IP 與同質化風險，不採用。
+
+## Studio 產品機制研究
+
+### B — AI 追光公開工具頁的行為觀察
+
+- 研究日期：2026-08-13。
+- 來源：[漫劇工坊](https://aizhuiguang.tech/tools/manju.html)、[長鏡工坊](https://aizhuiguang.tech/tools/longshot.html)、[角色三視圖](https://aizhuiguang.tech/tools/character-turnaround.html)、[爆款情景](https://aizhuiguang.tech/gallery/viral-scene.html)、[宮格成片](https://aizhuiguang.tech/gallery/grid-story.html)、[資產庫](https://aizhuiguang.tech/tools/assets.html)、[追光剪輯台](https://aizhuiguang.tech/tools/lightcut.html)。
+- 可用洞察：完整故事與單一高衝擊瞬間應分流；模型時長／參考額度要先形成 capability snapshot；全局風格可由逐鏡繼承；recurring 角色要有身份視圖；資產註冊、逐鏡時間線、可續作草稿、整段／逐鏡雙輸出與剪輯 handoff 能降低批次生產的資訊遺失。
+- 證據限制：這是公開頁面的產品行為研究，不是該站程式碼、模型品質或商業成效的驗證；頁面顯示的模型上限不得外推為永久事實。
+- 原創邊界：只重構一般性工作流機制，不複製文案、提示詞模板、品牌、介面、媒體、程式碼或未授權內容。具體規格見 [studio-workflow.md](studio-workflow.md)。

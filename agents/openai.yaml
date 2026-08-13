@@ -1,4 +1,4 @@
 interface:
   display_name: "AI 短劇自動製作"
-  short_description: "從爆款概念、分集劇本到可驗證、可續跑的短劇 production pack"
-  default_prompt: "Use $ai-short-drama to turn my premise into a validated, resumable AI short-drama pilot; continue to a local master only when compatible media and editing executors are available."
+  short_description: "從爆款概念、片型路由到可驗證、可續跑的短劇 production pack"
+  default_prompt: "Use $ai-short-drama to route my premise into a validated Studio Plan and resumable AI short-drama pilot; continue to a local master only when compatible media and editing executors are available."

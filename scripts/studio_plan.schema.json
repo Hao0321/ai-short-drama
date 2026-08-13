@@ -1,0 +1,187 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AI Short Drama Studio Plan",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "format_profile",
+    "model_capability",
+    "global_settings",
+    "assets",
+    "timeline",
+    "variation_policy",
+    "outputs"
+  ],
+  "properties": {
+    "format_profile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "story_scope", "target_duration_seconds", "shot_strategy", "dominant_turn"],
+      "properties": {
+        "id": {
+          "enum": ["serial_episode", "micro_drama", "viral_one_take", "grid_moment", "continuous_long_take"]
+        },
+        "story_scope": {
+          "enum": ["episode", "complete_micro_story", "single_high_impact_moment", "scene"]
+        },
+        "target_duration_seconds": {"type": "number", "exclusiveMinimum": 0},
+        "shot_strategy": {"enum": ["timeline", "one_take", "grid"]},
+        "dominant_turn": {"$ref": "#/$defs/nonempty"}
+      }
+    },
+    "model_capability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "model_id",
+        "status",
+        "max_duration_seconds",
+        "max_reference_assets",
+        "supported_reference_types",
+        "verified_at",
+        "evidence"
+      ],
+      "properties": {
+        "model_id": {"$ref": "#/$defs/nonempty"},
+        "status": {"enum": ["verified", "unverified"]},
+        "max_duration_seconds": {"type": "number", "exclusiveMinimum": 0},
+        "max_reference_assets": {"type": "integer", "minimum": 0},
+        "supported_reference_types": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"enum": ["image", "video", "audio", "text"]}
+        },
+        "verified_at": {"type": "string", "format": "date"},
+        "evidence": {"$ref": "#/$defs/nonempty"}
+      }
+    },
+    "global_settings": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["aspect_ratio", "visual_style", "lighting", "color_tone", "language", "audio_baseline"],
+      "properties": {
+        "aspect_ratio": {"$ref": "#/$defs/nonempty"},
+        "visual_style": {"$ref": "#/$defs/nonempty"},
+        "lighting": {"$ref": "#/$defs/nonempty"},
+        "color_tone": {"$ref": "#/$defs/nonempty"},
+        "language": {"$ref": "#/$defs/nonempty"},
+        "audio_baseline": {"$ref": "#/$defs/nonempty"}
+      }
+    },
+    "assets": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/asset"}
+    },
+    "timeline": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/shot"}
+    },
+    "variation_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["seed", "dimensions", "shuffle_bag", "avoid_recent"],
+      "properties": {
+        "seed": {"type": "integer"},
+        "dimensions": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/nonempty"}
+        },
+        "shuffle_bag": {"type": "boolean"},
+        "avoid_recent": {"type": "integer", "minimum": 0}
+      }
+    },
+    "outputs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["prompt_mode", "draft_path", "asset_inbox", "editor_handoff"],
+      "properties": {
+        "prompt_mode": {"enum": ["long_timeline", "shot_by_shot", "both"]},
+        "draft_path": {"$ref": "#/$defs/nonempty"},
+        "asset_inbox": {"$ref": "#/$defs/nonempty"},
+        "editor_handoff": {"$ref": "#/$defs/nonempty"}
+      }
+    }
+  },
+  "$defs": {
+    "nonempty": {"type": "string", "minLength": 1},
+    "identifier": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"},
+    "asset": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "kind", "name", "recurrence", "visual_anchor", "reference_files"],
+      "properties": {
+        "id": {"$ref": "#/$defs/identifier"},
+        "kind": {"enum": ["character", "location", "prop", "costume", "voice"]},
+        "name": {"$ref": "#/$defs/nonempty"},
+        "recurrence": {"enum": ["recurring", "one_off"]},
+        "visual_anchor": {"type": "string"},
+        "voice_anchor": {"type": "string"},
+        "consent_status": {"enum": ["verified", "not_applicable", "unknown"]},
+        "identity_views": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"enum": ["front_closeup", "front_full", "side_full", "back_full", "expression_sheet"]}
+        },
+        "reference_files": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/nonempty"}
+        }
+      }
+    },
+    "dialogue": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["speaker_id", "text", "performance"],
+      "properties": {
+        "speaker_id": {"$ref": "#/$defs/identifier"},
+        "text": {"$ref": "#/$defs/nonempty"},
+        "performance": {"$ref": "#/$defs/nonempty"}
+      }
+    },
+    "shot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "start_seconds",
+        "duration_seconds",
+        "shot_size",
+        "camera_move",
+        "angle",
+        "location_id",
+        "emotion",
+        "transition",
+        "entity_ids",
+        "observable_action",
+        "dialogue",
+        "sound"
+      ],
+      "properties": {
+        "id": {"$ref": "#/$defs/identifier"},
+        "start_seconds": {"type": "number", "minimum": 0},
+        "duration_seconds": {"type": "number", "exclusiveMinimum": 0},
+        "shot_size": {"$ref": "#/$defs/nonempty"},
+        "camera_move": {"$ref": "#/$defs/nonempty"},
+        "angle": {"$ref": "#/$defs/nonempty"},
+        "location_id": {"$ref": "#/$defs/identifier"},
+        "emotion": {"$ref": "#/$defs/nonempty"},
+        "transition": {"enum": ["cut", "continuous", "dissolve", "match_cut", "wipe", "none"]},
+        "entity_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/identifier"}
+        },
+        "observable_action": {"$ref": "#/$defs/nonempty"},
+        "dialogue": {"type": "array", "items": {"$ref": "#/$defs/dialogue"}},
+        "sound": {"$ref": "#/$defs/nonempty"},
+        "override_reason": {"type": "string"}
+      }
+    }
+  }
+}

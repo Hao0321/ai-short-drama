@@ -1,0 +1,99 @@
+{
+  "format_profile": {
+    "id": "viral_one_take",
+    "story_scope": "single_high_impact_moment",
+    "target_duration_seconds": 10,
+    "shot_strategy": "one_take",
+    "dominant_turn": "鎖住的門從裡面被打開。"
+  },
+  "model_capability": {
+    "model_id": "example/video/v1",
+    "status": "verified",
+    "max_duration_seconds": 10,
+    "max_reference_assets": 4,
+    "supported_reference_types": ["image"],
+    "verified_at": "2026-08-13",
+    "evidence": "投產前查核的官方文件或實際 UI"
+  },
+  "global_settings": {
+    "aspect_ratio": "9:16",
+    "visual_style": "cinematic grounded realism",
+    "lighting": "motivated practical lighting",
+    "color_tone": "warm skin and cool shadows",
+    "language": "zh-TW",
+    "audio_baseline": "dialogue-forward controlled room tone"
+  },
+  "assets": [
+    {
+      "id": "char_lead_01",
+      "kind": "character",
+      "name": "主角",
+      "recurrence": "recurring",
+      "visual_anchor": "approved character sheet v1",
+      "voice_anchor": "licensed voice profile v1",
+      "consent_status": "verified",
+      "identity_views": ["front_closeup", "front_full", "side_full"],
+      "reference_files": ["lead_close.png", "lead_front.png", "lead_side.png"]
+    },
+    {
+      "id": "loc_hall_01",
+      "kind": "location",
+      "name": "走廊",
+      "recurrence": "recurring",
+      "visual_anchor": "approved location sheet v1",
+      "consent_status": "not_applicable",
+      "identity_views": [],
+      "reference_files": ["hall.png"]
+    }
+  ],
+  "timeline": [
+    {
+      "id": "beat_001",
+      "start_seconds": 0,
+      "duration_seconds": 4,
+      "shot_size": "medium",
+      "camera_move": "slow_track_back",
+      "angle": "eye_level",
+      "location_id": "loc_hall_01",
+      "emotion": "contained_panic",
+      "transition": "none",
+      "entity_ids": ["char_lead_01"],
+      "observable_action": "主角一邊聽電話，一邊退向鎖住的門。",
+      "dialogue": [],
+      "sound": "走廊另一端的腳步逐漸逼近。"
+    },
+    {
+      "id": "beat_002",
+      "start_seconds": 4,
+      "duration_seconds": 6,
+      "shot_size": "closeup",
+      "camera_move": "continuous_orbit",
+      "angle": "slightly_low",
+      "location_id": "loc_hall_01",
+      "emotion": "shock",
+      "transition": "continuous",
+      "entity_ids": ["char_lead_01"],
+      "observable_action": "門向內打開，主角停在半步之間。",
+      "dialogue": [
+        {
+          "speaker_id": "char_lead_01",
+          "text": "你一直在裡面？",
+          "performance": "幾乎無聲，呼吸停半拍"
+        }
+      ],
+      "sound": "門鎖彈開，逼近的腳步同時消失。"
+    }
+  ],
+  "variation_policy": {
+    "seed": 1847,
+    "dimensions": ["pace", "dialogue_density"],
+    "shuffle_bag": true,
+    "avoid_recent": 3
+  },
+  "outputs": {
+    "prompt_mode": "both",
+    "draft_path": "projects/demo/studio-plan.json",
+    "asset_inbox": "projects/demo/assets/inbox",
+    "editor_handoff": "9:16 timeline with captions, dialogue, SFX, and QA notes"
+  }
+}

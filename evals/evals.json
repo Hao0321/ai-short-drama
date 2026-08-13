@@ -53,6 +53,19 @@
         "Stops for login, unexpected payment, unsupported model capability, exhausted retries, compliance uncertainty, or explicit public-publish confirmation.",
         "Does not claim that a mock-only run proves a real provider or platform upload."
       ]
+    },
+    {
+      "id": "studio-router-viral-one-take",
+      "prompt": "我要把『她準備報警，卻發現電話另一端的人就站在門後』做成 15 秒爆款一鏡到底，全部你來，角色後面還會重用。",
+      "assertions": [
+        "Routes the request to viral_one_take with single_high_impact_moment scope instead of expanding it into a complete micro-drama.",
+        "Creates a Studio Plan before compiling media prompts.",
+        "Records a verified model capability snapshot with duration and reference-asset limits, or stops for a probe if unverified.",
+        "Locks recurring character identity views as front close-up, front full-body, and side full-body with a consented voice anchor.",
+        "Builds a contiguous 15-second one-take beat timeline with no cut transitions and one dominant turn.",
+        "Uses stable asset IDs, inherited global settings, observable actions, dialogue performance, and sound per beat.",
+        "Defines deterministic variation and an editor handoff, then passes studio_lint.py --studio-ready before generation."
+      ]
     }
   ]
 }

@@ -10,6 +10,8 @@
 - Greenlight：用八維評分選出值得測試的概念。
 - Bible：建立角色、世界規則、能力代價、揭露與反派階梯。
 - Season／Episode：規劃 micro-arc，寫出有 dominant turn、payoff、cliffhanger 與 state delta 的單集。
+- Studio：在連載單集、完整微短劇、爆款一鏡、宮格瞬間與連續長鏡之間路由。
+- Model-aware production：記錄模型時長／參考額度，鎖定 recurring 角色三視圖、全局風格與逐鏡時間線。
 - Produce：輸出 schema-valid production pack、固定 entity ID、逐鏡生成 brief 與剪輯 handoff。
 - Audit：分開診斷概念、單集、整季、生產與包裝問題。
 
@@ -42,11 +44,19 @@ git clone https://github.com/Hao0321/ai-short-drama.git ~/.claude/skills/ai-shor
 ## 驗證
 
 ```bash
-python -m py_compile scripts/drama_lint.py
+python -m py_compile scripts/drama_lint.py scripts/studio_lint.py
 python scripts/drama_lint.py --help
+python scripts/studio_lint.py examples/studio-plan.example.json --studio-ready
+python -m unittest discover -s tests -v
 ```
 
-`scripts/production_pack.schema.json` 定義機器欄位；`scripts/drama_lint.py --production-ready <pack.json>` 檢查敘事與連載契約。
+`scripts/studio_plan.schema.json` 與 `scripts/studio_lint.py` 檢查片型、模型能力、資產鎖與時間線；`scripts/production_pack.schema.json` 與 `scripts/drama_lint.py` 檢查敘事與連載契約。詳細流程見 [Studio Workflow](references/studio-workflow.md)。
+
+## 研究與原創邊界
+
+Studio 層參考了 [AI 追光](https://aizhuiguang.tech/) 公開頁面呈現的可泛化產品機制，例如片型分流、資產註冊、逐鏡時間線與剪輯交接；完整來源與限制記錄在 [研究證據登錄](references/evidence-registry.md)。
+
+本專案是獨立重構，沒有複製對方的文案、提示詞模板、品牌、介面、圖片、音訊或程式碼。模型能力上限也不硬編碼為永久事實，投產前必須重新驗證。
 
 ## License
 

@@ -1,20 +1,31 @@
 __pycache__/
 *.py[cod]
 .venv/
+.pytest_cache/
 .env
+.env.*
 *.local
+*.key
+*.pem
 
 # Generated projects and media
 output/
 artifacts/
 videos/
+projects/
+assets/inbox/
 *.mp4
 *.mov
 *.wav
+*.mp3
+*.png
+*.jpg
+*.jpeg
 
 # Personal continuity data
 private/
 memory/
+references/local/
 references/series-private-*.md
 
 # OS / editor
