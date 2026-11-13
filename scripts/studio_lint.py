@@ -4,7 +4,12 @@
 Examples:
     python studio_lint.py studio-plan.json
     python studio_lint.py studio-plan.json --studio-ready --json
-    Get-Content studio-plan.json -Raw | python studio_lint.py -
+    python studio_lint.py - < studio-plan.json
+
+Windows PowerShell 5.1 pipes text to native programs as ASCII by default, so
+pass the file path, or pipe with UTF-8 explicitly:
+    $OutputEncoding = [Text.UTF8Encoding]::new($false)
+    Get-Content studio-plan.json -Raw -Encoding UTF8 | python studio_lint.py -
 """
 
 from __future__ import annotations
@@ -459,7 +464,8 @@ def lint(data: Any, studio_ready: bool) -> Report:
 
 def read_json(source: str) -> Any:
     if source == "-":
-        raw = sys.stdin.read()
+        # Same codec as the file branch; the locale codec (cp950, cp1252) and a BOM break JSON.
+        raw = sys.stdin.buffer.read().decode("utf-8-sig")
     else:
         raw = Path(source).read_text(encoding="utf-8-sig")
     return json.loads(raw)
@@ -494,11 +500,20 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
+def use_utf8_output() -> None:
+    """Captured output on Windows defaults to the locale codec, which cannot encode
+    Simplified Chinese or emoji in findings; reports are always UTF-8."""
+    for stream in (sys.stdout, sys.stderr):
+        if hasattr(stream, "reconfigure"):
+            stream.reconfigure(encoding="utf-8")
+
+
 def main() -> int:
+    use_utf8_output()
     args = parse_args()
     try:
         data = read_json(args.source)
-    except (OSError, json.JSONDecodeError) as exc:
+    except (OSError, UnicodeDecodeError, json.JSONDecodeError) as exc:
         report = Report()
         report.error("$", f"cannot read valid JSON: {exc}")
         emit(report, args.json)
